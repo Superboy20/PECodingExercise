@@ -50,25 +50,25 @@ async function fetchNames() {
     for (let i = 0; i < characters.length; i++) {
         let item = characters[i];
 
-        // Vehicle names, manufactuerers, and worth are all set to an empty array
+        // Vehicle names, manufactuerers, and cost are all set to an empty array
         let vehicleNames = [];
         let vehicleManufacturers = [];
-        let vehicleWorth = [];
+        let vehicleCost = [];
 
         // If a character is NOT associated with any vehicles, provide 'N/A' in the text content
         if (item.vehicles.length === 0) {
             vehicleNames.push('N/A');
             vehicleManufacturers.push('N/A');
-            vehicleWorth.push('N/A');
+            vehicleCost.push('N/A');
         } else {
-            // Loop through each character's vehicle info, push results into vehicleNames, vehicleManufacturers, vehicleWorth arrays
+            // Loop through each character's vehicle info, push results into vehicleNames, vehicleManufacturers, vehicleCost arrays
             // with the necessary info
             for (let j = 0; j < item.vehicles.length; j++) {
                 let vehicleResult = await fetch(item.vehicles[j]);
                 let vehicleData = await vehicleResult.json();
                 vehicleNames.push(vehicleData.name);
                 vehicleManufacturers.push(vehicleData.manufacturer);
-                vehicleWorth.push(vehicleData.cost_in_credits);
+                vehicleCost.push(vehicleData.cost_in_credits);
             }
         }
         // Paste info dynamically into HTML with the necessary content filled out
@@ -80,7 +80,7 @@ async function fetchNames() {
               <div id="empty" class="content character-info">
               <p>Vehicle Name: ${vehicleNames.join(', ')}<p>
               <p>Vehicle Manufacturer: ${vehicleManufacturers.join(', ')}<p>
-              <p> Vehicle Cost: ${vehicleWorth.join(', ')}<p>
+              <p> Vehicle Cost: ${vehicleCost.join(', ')}<p>
               </div>
 
               <div class="character-info">Height: ${item.height} cm</div>
